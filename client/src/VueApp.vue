@@ -2,7 +2,7 @@
     <div id="vue-app">
         <Header />
             <main>
-                <router-view />
+                <router-view @popup="popup($event)"/>
             </main>
         <Footer />
     </div>
@@ -24,6 +24,12 @@ export default {
   mounted () {
     // TODO: Maybe cookie to see user preference for color scheme
     document.body.classList.add('pal-solar-lt')
+  },
+  methods: {
+    popup (event) {
+      console.log('popup')
+      console.log(event)
+    }
   }
 }
 </script>

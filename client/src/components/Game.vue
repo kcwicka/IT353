@@ -18,22 +18,12 @@
                 <td><b>{{ game.players.min }} to {{ game.players.max }}</b></td>
             </tr>
             <tr>
-                <td>
-                    <router-link :to="{ name: 'Update Game', params: { curData: game } }">Update Game</router-link>
-                </td>
-                <td>
-                    Delete? <input type="checkbox" @click="removeGame(game._id)">
+                <td colspan="100%">
+                    <button title="Update Game" type="button" @click="$router.push({ name: 'Update Game', params: { curData: game } })">📝</button>
+                    <button title="Delete Game" type="button" @click="removeGame(game._id)">🗑️</button>
                 </td>
             </tr>
         </table>
-        <!--
-        <b>Title</b>: {{ game.title }}<br>
-        <b>Publisher</b>: {{ game.publisher }}<br>
-        <b>Genre</b>: {{ game.genre }}<br>
-        <span v-if="game.players"><b>Players</b>: {{ game.players.min }} to {{ game.players.max }}<br></span>
-        Delete? <input type="checkbox" @click="removeGame(game._id)">
-        <router-link :to="{ name: 'Update Game', params: { curData: game } }">Update info?</router-link>
-        -->
     </li>
 </template>
 
@@ -43,11 +33,11 @@ export default {
   props: [ 'game' ],
   methods: {
     async removeGame (id) {
-      const { data } = await GameClosetAPI.removeGame(id)
-      if (data.ok) {
-        this.$emit('refresh', data.ok)
+      const { data: response } = await GameClosetAPI.removeGame(id)
+      if (response.ok) {
+        this.$emit('refresh', response.ok)
       } else {
-        console.warn(data.error)
+        this.$emit('popup', response.error)
       }
     }
   }

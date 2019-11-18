@@ -31,12 +31,12 @@ const API = {
             delete game._id;
             const update = { $set: Object.assign({ view: true }, game) };
             collection.updateOne(id, update, (err, res) => {
-                response.send(ResponseBuilder(err, res));
+                response.send(ResponseBuilder(err, 'updated'));
             });
         } else {
             // Add new game
             collection.insertOne(game, (err, res) => {
-                response.send(ResponseBuilder(err, res));
+                response.send(ResponseBuilder(err, 'added'));
             });
         }
     },
@@ -46,12 +46,7 @@ const API = {
             game,
             { $set: { remove: true, view: false } },
             (err, res) => {
-                response.send(
-                    ResponseBuilder(
-                        err,
-                        `${res.modifiedCount} game marked for removal`
-                    )
-                );
+                response.send(ResponseBuilder(err, 'removed'));
             }
         );
     },

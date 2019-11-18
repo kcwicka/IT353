@@ -1,4 +1,4 @@
-a, button, input {
+a, button, footer, header, input, li, main {
     box-shadow:  0.075rem  0.075rem 0.1rem var(--black),
                 -0.075rem  0.075rem 0.1rem var(--black),
                  0.075rem -0.075rem 0.1rem var(--black),
@@ -27,7 +27,7 @@ body {
 }
 button {
     background-color: var(--darkergray);
-    border: 0rem solid;
+    border: none;
     border-radius: 1.5rem;
     font-size: 1.25rem;
     padding: 0.5rem;
@@ -48,11 +48,17 @@ footer, header, main {
     padding: 1.5rem;
     width: 85%;
 }
+form div {
+    padding: 0.25rem;
+    margin: 0.25rem;
+}
+input[type="number"] {
+    width: 2rem;
+}
 label {
     color: var(--darkestgray);
 }
 li {
-    border: solid 0.25rem var(--green);
     border-radius: 2rem;
     background-color: var(--darkgray);
     color: var(--lightestgray);

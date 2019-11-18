@@ -23,11 +23,9 @@ const Run = async () => {
         const URI = `mongodb+srv://${user}:${pass}@gamecloset-kgc2r.gcp.mongodb.net/closet?retryWrites=true&w=majority`;
         const { MongoClient } = require('mongodb');
         try {
-            console.log(`Attempting to connect the mongoDB...`);
+            console.log(`Attempting to connect to mongoDB...`);
             new MongoClient(URI, {
                 autoReconnect: true,
-                reconnectInterval: 1000,
-                reconnectTries: 1,
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             }).connect((err, db) => {
