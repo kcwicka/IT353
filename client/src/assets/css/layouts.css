@@ -1,3 +1,9 @@
+a, button, input {
+    box-shadow:  0.075rem  0.075rem 0.1rem var(--black),
+                -0.075rem  0.075rem 0.1rem var(--black),
+                 0.075rem -0.075rem 0.1rem var(--black),
+                -0.075rem -0.075rem 0.1rem var(--black);
+}
 a, a:link {
     color: var(--blue);
     background-color: var(--black);
@@ -19,6 +25,19 @@ body {
     font-size: 1.25rem;
     text-align: center;
 }
+button {
+    background-color: var(--darkergray);
+    border: 0rem solid;
+    border-radius: 1.5rem;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+}
+button:hover {
+    background-color: var(--darkestgray);
+}
+button:active {
+    background-color: var(--lightgray);
+}
 footer, header {
     background-color: var(--lightgray);
     color: var(--darkestgray);
@@ -28,6 +47,9 @@ footer, header, main {
     margin: 0.5rem auto;
     padding: 1.5rem;
     width: 85%;
+}
+label {
+    color: var(--darkestgray);
 }
 li {
     border: solid 0.25rem var(--green);
@@ -45,6 +67,10 @@ main {
 table {
     margin: 0 auto;
     width: fit-content;
+}
+td {
+    margin: 0.125rem;
+    padding: 0.25rem;
 }
 ul {
     display: inline-block;

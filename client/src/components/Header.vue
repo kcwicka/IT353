@@ -1,9 +1,9 @@
 <template>
     <header>
-        <router-link to="/">Game Closet</router-link><br>
-        <router-link to="/add-game">Add a Game</router-link><br>
-        <router-link to="/closet">View Closet</router-link><br>
-        <button type="button" @click="togglePalette()" />
+        <button type="button" @click="link('/')" title="Home">🎲</button>
+        <button type="button" @click="link('/add-game')" title="Add...">➕</button>
+        <button type="button" @click="link('/closet')" title="View...">📃</button>
+        <button type="button" id="toggle" @click="togglePalette()" title="Toggle Night Mode" />
     </header>
 </template>
 
@@ -11,7 +11,7 @@
 export default {
   data: () => ({ light: '🌞', dark: '🌑', toggle: {} }),
   mounted () {
-    this.toggle = document.querySelector('[type="button"]')
+    this.toggle = document.querySelector('#toggle')
     this.toggle.innerText =
       document.body.classList.contains('pal-solar-dk')
         ? this.light
@@ -20,7 +20,7 @@ export default {
   methods: {
     togglePalette () {
       const config =
-        this.toggle.innerText === this.dark
+        (this.toggle.innerText === this.dark)
           ? ({
             oldBtn: this.dark,
             newBtn: this.light,
@@ -35,6 +35,14 @@ export default {
           })
       document.body.classList.replace(config.oldPal, config.newPal)
       this.toggle.innerText = this.toggle.innerText.replace(config.oldBtn, config.newBtn)
+    },
+    test () {
+      this.$router.push('/')
+    },
+    async link (src) {
+      try {
+        await this.$router.push(src)
+      } catch (err) { }
     }
   }
 }

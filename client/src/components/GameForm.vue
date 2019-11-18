@@ -66,13 +66,19 @@ export default {
   methods: {
     async processForm (event) {
       event.preventDefault()
-      const game = { view: true }
-      game.title = this.gameData.title
-      game.publisher = this.gameData.publisher
-      game.genre = this.gameData.genre
-      game.players = this.gameData.players
-      if (this.gameData._id) {
-        game._id = this.gameData._id
+      // TODO: Remove block ↓
+      // const game = { view: true }
+      // game.title = this.gameData.title
+      // game.publisher = this.gameData.publisher
+      // game.genre = this.gameData.genre
+      // game.players = this.gameData.players
+      // if (this.gameData._id) {
+      //   game._id = this.gameData._id
+      // }
+      // TODO: Remove block ↑
+      const game = Object.assign({ view: true }, this.gameData)
+      if (game._id === '') {
+        delete game._id
       }
       const { data: response } = await GameClosetAPI.saveGame(game)
       if (response.ok) {
