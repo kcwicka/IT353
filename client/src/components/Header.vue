@@ -1,26 +1,26 @@
 <template>
     <header>
-        <button type="button" @click="link('/')" title="Home">🎲</button>
-        <button type="button" @click="link('/add-game')" title="Add...">➕</button>
-        <button type="button" @click="link('/closet')" title="View...">📃</button>
-        <button type="button" id="toggle" @click="togglePalette()" title="Toggle Night Mode" />
+        <span id="navbar" v-if="loggedIn">
+            <button type="button" @click="link('/')" title="Home">🎲</button>
+            <button type="button" @click="link('/add-game')" title="Add...">➕</button>
+            <button type="button" @click="link('/closet')" title="View...">📃</button>
+            <button type="button" id="toggle" @click="togglePalette()" title="Toggle Night Mode">{{ togg }}</button>
+        </span>
+        <Login v-else @popup="$emit('popup', $event)"/>
     </header>
 </template>
 
 <script>
+import Login from './Login'
 export default {
+  components: { Login },
   data: () => ({ light: '🌞', dark: '🌑', toggle: {} }),
-  mounted () {
-    this.toggle = document.querySelector('#toggle')
-    this.toggle.innerText =
-      document.body.classList.contains('pal-solar-dk')
-        ? this.light
-        : this.dark
-  },
+  props: [ 'loggedIn', 'togg' ],
   methods: {
     togglePalette () {
+      const toggle = document.querySelector('#toggle')
       const config =
-        (this.toggle.innerText === this.dark)
+        (toggle.innerText === this.dark)
           ? ({
             oldBtn: this.dark,
             newBtn: this.light,
@@ -34,7 +34,7 @@ export default {
             newPal: 'pal-solar-lt'
           })
       document.body.classList.replace(config.oldPal, config.newPal)
-      this.toggle.innerText = this.toggle.innerText.replace(config.oldBtn, config.newBtn)
+      toggle.innerText = toggle.innerText.replace(config.oldBtn, config.newBtn)
     },
     test () {
       this.$router.push('/')

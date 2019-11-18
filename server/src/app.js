@@ -18,7 +18,7 @@ const Run = async () => {
         const user = reader.question('Username: ');
         const pass = reader.question('Password: ', {
             hideEchoBack: true,
-            mask: '#'
+            mask: '-'
         });
         const URI = `mongodb+srv://${user}:${pass}@gamecloset-kgc2r.gcp.mongodb.net/closet?retryWrites=true&w=majority`;
         const { MongoClient } = require('mongodb');
@@ -29,15 +29,10 @@ const Run = async () => {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             }).connect((err, db) => {
-                if (null !== err) {
+                if (null !== err || !db.s.options.auth) {
                     reject(err);
                 } else {
-                    if (!db.s.options.auth) {
-                        console.error('Must log in as user');
-                        process.exit(0);
-                    } else {
-                        resolve(db);
-                    }
+                    resolve(db);
                 }
             });
         } catch (err) {
@@ -48,42 +43,28 @@ const Run = async () => {
         console.error(reason.message);
         process.exit(0);
     });
-    if (!mongoClient.s.options.auth) {
-        console.error('Must log in as user');
-        process.exit(0);
-    }
-
     console.log('Connected to mongoDB');
-
-    /***********
-     * Utility *
-     ***********/
 
     /*******
      * API *
      *******/
-    const { GetGames, GetUsers, API } = require('./api');
-    // TODO: Maybe change to post based on having user logins?
+    const {
+        GetGames,
+        GetUsers,
+        get: { viewGames },
+        post: { saveGame, removeGame, login }
+    } = require('./api')(mongoClient);
     app.get('/view-games', (req, res) => {
-        API.viewGames(GetGames(mongoClient), req, res);
+        viewGames(GetGames(), req, res);
     });
     app.post('/save-game', (req, res) => {
-        API.saveGame(GetGames(mongoClient), req, res);
+        saveGame(GetGames(), req, res);
     });
     app.post('/remove-game', (req, res) => {
-        API.removeGame(GetGames(mongoClient), req, res);
-        // const gameToDelete = { _id: mongo.ObjectID(request.body.id) };
-        // GetGames().deleteOne(gameToDelete, (err, results) => {
-        //   if (err) {
-        //     console.log(err);
-        //     response.send(err);
-        //     return;
-        //   }
-        //   response.send(`${results.deletedCount} items`);
-        // });
+        removeGame(GetGames(), req, res);
     });
     app.post('/login', (req, res) => {
-        API.login(GetUsers(mongoClient), req, res);
+        login(GetUsers(), req, res);
     });
 
     return app.listen(process.env.PORT || 8081);

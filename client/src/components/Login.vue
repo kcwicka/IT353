@@ -16,7 +16,7 @@ export default {
     async login (event) {
       event.preventDefault()
       const { data: response } = await GameClosetAPI.login(this.credentials)
-      console.log(response)
+      this.$emit('popup', response)
     }
   }
 }
