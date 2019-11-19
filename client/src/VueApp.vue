@@ -1,9 +1,10 @@
 <template>
     <div id="vue-app">
         <Header @popup="popup($event)" :loggedIn="loggedIn" :togg="togg" />
-            <main>
-                <router-view @popup="popup($event)"/>
-            </main>
+        <div id="notify" class="curved" style="display: none; visibility: hidden;" />
+        <main class="curved">
+            <router-view @popup="popup($event)"/>
+        </main>
         <Footer />
     </div>
 </template>
@@ -18,7 +19,11 @@ export default {
     togg: () => this.palette === 'pal-solar-lt' ? '🌞' : '🌑'
   },
   data () {
-    return { loggedIn: false, palette: 'pal-solar-lt' }
+    return {
+      loggedIn: false,
+      notify: void 0,
+      palette: 'pal-solar-lt'
+    }
   },
   components: {
     Footer,
@@ -27,32 +32,45 @@ export default {
   mounted () {
     // TODO: Maybe cookie to see user preference for color scheme
     document.body.classList.add(this.palette)
+    this.notify = document.querySelector('#notify')
   },
   methods: {
     popup (event) {
-      let response, popMsg, popClass
+      let popMsg, popClass
       if (event.ok) {
         // Good Things!
-        response = event.ok
+        popClass = 'success'
+        const response = event.ok
         if (response.loggedIn) {
-          // Response from logging in
           this.loggedIn = response.loggedIn
           popMsg = 'You are now logged in!'
-          popClass = 'success'
+        } else if (response.added) {
+          popMsg = 'A new game was added to your closet'
+        } else if (response.updated) {
+          popMsg = 'Game information has been updated'
+        } else if (response.removed) {
+          popMsg = 'Game was marked for removal'
+        } else {
+          popMsg = ' Uh... what'
+          popClass = 'warning'
         }
       } else {
         // Bad Things!
-        response = event.error
         popMsg = event.error
         popClass = 'error'
       }
 
-      console.log('API Response:')
-      console.log(response)
-      console.log('Popup Message:')
-      console.log(popMsg)
-      console.log('Popup Type/Class:')
-      console.log(popClass)
+      this.notify.style.display = 'block'
+      this.notify.style.visibility = 'visible'
+      this.notify.innerText = popMsg
+      this.notify.classList.add(popClass)
+      setTimeout(this.clearPopup, 5000)
+    },
+    clearPopup () {
+      this.notify.innerText = ''
+      this.notify.classList.remove('error', 'warning', 'success')
+      this.notify.style.display = 'none'
+      this.notify.style.visibility = 'hidden'
     }
   }
 }

@@ -5,9 +5,9 @@ const Run = async () => {
     const app = require('express')();
     // Morgan provides logging methods
     app.use(require('morgan')('dev'));
-    // TODO: Research if I need this package
+    // body-parser assists with translating data to/from JSON objects
     app.use(require('body-parser').json());
-    // TODO: Research if I need this package
+    // CORS allows Cross Origin Requests, so the website can communicate with this server
     app.use(require('cors')());
 
     /***********************

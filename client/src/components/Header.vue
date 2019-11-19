@@ -1,10 +1,10 @@
 <template>
-    <header>
+    <header class="curved">
         <span id="navbar" v-if="loggedIn">
-            <button type="button" @click="link('/')" title="Home">🎲</button>
-            <button type="button" @click="link('/add-game')" title="Add...">➕</button>
-            <button type="button" @click="link('/closet')" title="View...">📃</button>
-            <button type="button" id="toggle" @click="togglePalette()" title="Toggle Night Mode">{{ togg }}</button>
+            <button class="curved" type="button" @click="link('/')" title="Home">🎲</button>
+            <button class="curved" type="button" @click="link('/add-game')" title="Add...">➕</button>
+            <button class="curved" type="button" @click="link('/closet')" title="View...">📃</button>
+            <button class="curved" type="button" id="toggle" @click="togglePalette()" title="Toggle Night Mode">{{ togg }}</button>
         </span>
         <Login v-else @popup="$emit('popup', $event)"/>
     </header>

@@ -1,10 +1,8 @@
 <template>
     <form @submit="login($event)">
-        <label for="user">User:</label>
-        <input type="text" name="user" id="user" v-model="credentials.user" />
-        <label for="pass">Pass:</label>
-        <input type="password" name="pass" id="pass" v-model="credentials.pass"  />
-        <button type="submit">Login</button>
+        <input class="curved" placeholder="Username" type="text" name="user" id="user" v-model="credentials.user" />
+        <input class="curved" placeholder="Password" type="password" name="pass" id="pass" v-model="credentials.pass"  />
+        <button class="curved" type="submit">Login</button>
     </form>
 </template>
 

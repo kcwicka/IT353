@@ -1,22 +1,13 @@
 <template lang="html">
     <form @submit="processForm($event)">
-        <div>
-            <input placeholder="Game Name" type="text" id="GameName" v-model="gameData.title">
-        </div>
-        <div>
-            <input placeholder="Publisher" type="text" id="Publisher" v-model="gameData.publisher">
-        </div>
-        <div>
-            <input placeholder="Genre" list="Genres" id="Genre" v-model="gameData.genre">
-        </div>
-        <div>
-            Players: <input type="number" id="MinPlayers" v-model="gameData.players.min">
-        -- <input type="number" id="MaxPlayers" v-model="gameData.players.max">
-        </div>
-        <div>
-            <input type="hidden" id="_id" v-model="gameData._id">
-            <button type="submit" title="Put in Closet">✔️</button>
-        </div>
+        <h2>Game Information</h2>
+        <input class="curved" placeholder="Game Name" type="text" id="GameName" v-model="gameData.title"><br>
+        <input class="curved" placeholder="Publisher" type="text" id="Publisher" v-model="gameData.publisher"><br>
+        <input class="curved" placeholder="Genre" list="Genres" id="Genre" v-model="gameData.genre"><br>
+        Players: <input class="curved" type="number" id="MinPlayers" v-model="gameData.players.min"> -- <input class="curved" type="number" id="MaxPlayers" v-model="gameData.players.max"><br>
+        <br>
+        <input type="hidden" id="_id" v-model="gameData._id">
+        <button class="curved" type="submit" title="Put in Closet">✔️</button>
         <datalist id="Genres">
             <optgroup label="Board Games">
                 <option value="Strategy"></option>
@@ -59,14 +50,10 @@ export default {
         delete game._id
       }
       const { data: response } = await GameClosetAPI.saveGame(game)
-      let pop
       if (response.ok) {
-        setTimeout(() => { this.$router.push('/closet') }, 1000)
-        pop = response.ok.ops ? response.ok.ops[0] : response.ok
-      } else {
-        pop = response.error
+        this.$router.push('/closet')
       }
-      this.$emit('popup', pop)
+      this.$emit('popup', response)
     }
   },
   props: ['curData']

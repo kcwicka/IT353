@@ -29,7 +29,7 @@ export default {
         this.closet = []
         this.closet.push(...(response.ok))
       } else {
-        this.$emit('popup', response.error)
+        this.$emit('popup', response)
       }
     }
   }

@@ -1,84 +1,111 @@
-a, button, footer, header, input, li, main {
-    box-shadow:  0.075rem  0.075rem 0.1rem var(--black),
-                -0.075rem  0.075rem 0.1rem var(--black),
-                 0.075rem -0.075rem 0.1rem var(--black),
-                -0.075rem -0.075rem 0.1rem var(--black);
+a,
+button,
+footer,
+header,
+input,
+li,
+main {
+  box-shadow: 0.075rem 0.075rem 0.1rem var(--black),
+    -0.075rem 0.075rem 0.1rem var(--black),
+    0.075rem -0.075rem 0.1rem var(--black),
+    -0.075rem -0.075rem 0.1rem var(--black);
 }
-a, a:link {
-    color: var(--blue);
-    background-color: var(--black);
-    border-radius: 2rem;
-    padding: 0 1rem;
+a,
+a:link {
+  color: var(--blue);
+  background-color: var(--black);
+  padding: 0 1rem;
 }
 a:visited {
-    color: var(--violet);
+  color: var(--violet);
 }
 a:hover {
-    color: var(--cyan);
+  color: var(--cyan);
 }
 a:active {
-    color: var(--magenta);
+  color: var(--magenta);
 }
 body {
-    background-color: var(--white);
-    color: var(--black);
-    font-size: 1.25rem;
-    text-align: center;
+  background-color: var(--white);
+  color: var(--black);
+  font-size: 1.25rem;
 }
 button {
-    background-color: var(--darkergray);
-    border: none;
-    border-radius: 1.5rem;
-    font-size: 1.25rem;
-    padding: 0.5rem;
+  background-color: var(--darkergray);
+  border: none;
+  font-size: 1.25rem;
+  padding: 0.5rem;
 }
 button:hover {
-    background-color: var(--darkestgray);
+  background-color: var(--darkestgray);
 }
 button:active {
-    background-color: var(--lightgray);
+  background-color: var(--lightgray);
 }
-footer, header {
-    background-color: var(--lightgray);
-    color: var(--darkestgray);
+footer,
+header {
+  background-color: var(--lightgray);
+  color: var(--darkestgray);
 }
-footer, header, main {
-    border-radius: 2rem;
-    margin: 0.5rem auto;
-    padding: 1.5rem;
-    width: 85%;
+footer,
+header,
+main,
+#notify {
+  margin: 0.5rem auto;
+  padding: 1.5rem;
+  width: 85%;
+  text-align: center;
 }
 form div {
-    padding: 0.25rem;
-    margin: 0.25rem;
+  padding: 0.25rem;
+  margin: 0.25rem;
 }
-input[type="number"] {
-    width: 2rem;
+input {
+  padding: 0.25rem;
+  margin: 0.25rem;
+}
+input[type='number'] {
+  width: 2rem;
 }
 label {
-    color: var(--darkestgray);
+  color: var(--darkestgray);
 }
 li {
-    border-radius: 2rem;
-    background-color: var(--darkgray);
-    color: var(--lightestgray);
-    list-style-type: none;
-    margin: 1rem auto;
-    padding: 1rem;
+  background-color: var(--darkgray);
+  color: var(--lightestgray);
+  list-style-type: none;
+  margin: 1rem auto;
+  padding: 1rem;
 }
 main {
-    background-color: var(--lightergray);
-    color: var(--darkergray);
+  background-color: var(--lightergray);
+  color: var(--darkergray);
+}
+pre {
+  text-align: left;
 }
 table {
-    margin: 0 auto;
-    width: fit-content;
+  margin: 0 auto;
+  width: fit-content;
 }
 td {
-    margin: 0.125rem;
-    padding: 0.25rem;
+  margin: 0.125rem;
+  padding: 0.25rem;
 }
 ul {
-    display: inline-block;
-    width: fit-content;
+  display: inline-block;
+  width: fit-content;
+}
+
+.error {
+  background-color: var(--red);
+}
+.success {
+  background-color: var(--green);
+}
+.warning {
+  background-color: var(--yellow);
+}
+.curved {
+  border-radius: 2rem;
 }

@@ -2,13 +2,7 @@
 const { ObjectID } = require('mongodb');
 const MakeObjID = id => ({ _id: ObjectID(id) });
 
-class APIResponse {
-    constructor(response) {
-        Object.assign(this, { error: void 0, ok: void 0 }, response);
-    }
-}
-const ResponseBuilder = (error, success) =>
-    new APIResponse(error ? { error } : { ok: success });
+const ResponseBuilder = (error, success) => ({ error: error, ok: success });
 
 module.exports = client => {
     return {
@@ -36,12 +30,12 @@ module.exports = client => {
                         $set: Object.assign({ view: true }, game)
                     };
                     collection.updateOne(id, update, (err, res) => {
-                        response.send(ResponseBuilder(err, 'updated'));
+                        response.send(ResponseBuilder(err, { updated: true }));
                     });
                 } else {
                     // Add new game
                     collection.insertOne(game, (err, res) => {
-                        response.send(ResponseBuilder(err, 'added'));
+                        response.send(ResponseBuilder(err, { added: true }));
                     });
                 }
             },
@@ -51,7 +45,7 @@ module.exports = client => {
                     game,
                     { $set: { remove: true, view: false } },
                     (err, res) => {
-                        response.send(ResponseBuilder(err, 'removed'));
+                        response.send(ResponseBuilder(err, { removed: true }));
                     }
                 );
             },
@@ -61,7 +55,8 @@ module.exports = client => {
                     if (!res || request.body.pass !== res.pass) {
                         response.send(
                             ResponseBuilder(
-                                `Invalid username/password combination`
+                                `Invalid username/password combination`,
+                                {}
                             )
                         );
                         return;
