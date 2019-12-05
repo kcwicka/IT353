@@ -1,9 +1,9 @@
 <template>
     <div id="closet">
         <span v-if="!viewable.length || !closet.length">There's nothing here!</span>
-        <ul v-else>
+        <div v-else>
             <Game :game="game" :key="game._id" v-for="game in viewable" @refresh="loadCloset($event)"/>
-        </ul>
+        </div>
     </div>
 </template>
 

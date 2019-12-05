@@ -1,7 +1,7 @@
 <template>
     <div id="vue-app">
-        <Header @popup="popup($event)" :loggedIn="loggedIn" :togg="togg" />
-        <div id="notify" class="curved" style="display: none; visibility: hidden;" />
+        <Header @popup="popup($event)" @toggle="togglePalette($event)" :loggedIn="loggedIn" :toggle="toggle" />
+        <div id="notify" class="curved" />
         <main class="curved">
             <router-view @popup="popup($event)"/>
         </main>
@@ -16,13 +16,14 @@ import Footer from '@/components/Footer'
 export default {
   name: 'VueApp',
   computed: {
-    togg: () => this.palette === 'pal-solar-lt' ? '🌞' : '🌑'
+    notify: () => document.querySelector('#notify'),
+    toggle () { return document.body.className.endsWith('lt') ? this.dark : this.light }
   },
   data () {
     return {
-      loggedIn: false,
-      notify: void 0,
-      palette: 'pal-solar-lt'
+      light: '🌞',
+      dark: '🌑',
+      loggedIn: false
     }
   },
   components: {
@@ -31,8 +32,9 @@ export default {
   },
   mounted () {
     // TODO: Maybe cookie to see user preference for color scheme
-    document.body.classList.add(this.palette)
-    this.notify = document.querySelector('#notify')
+    document.body.className = 'pal-solar-lt'
+    console.log(document.body.className)
+    console.log(this.toggle)
   },
   methods: {
     popup (event) {
@@ -60,17 +62,30 @@ export default {
         popClass = 'error'
       }
 
-      this.notify.style.display = 'block'
-      this.notify.style.visibility = 'visible'
+      this.notify.style.animationName = 'slidedown'
       this.notify.innerText = popMsg
       this.notify.classList.add(popClass)
-      setTimeout(this.clearPopup, 5000)
+      const dur = parseFloat(getComputedStyle(this.notify).animationDuration) * 1000
+      setTimeout(() => {
+        this.notify.style.animationName = 'slideup'
+        setTimeout(() => {
+          this.notify.innerText = ''
+          this.notify.classList.remove('error', 'warning', 'success')
+        }, dur * 0.9)
+      }, dur * 1.5)
     },
-    clearPopup () {
-      this.notify.innerText = ''
-      this.notify.classList.remove('error', 'warning', 'success')
-      this.notify.style.display = 'none'
-      this.notify.style.visibility = 'hidden'
+    togglePalette () {
+      const { oldPal, newPal } =
+        (document.body.className.endsWith('lt'))
+          ? ({
+            oldPal: 'lt',
+            newPal: 'dk'
+          })
+          : ({
+            oldPal: 'dk',
+            newPal: 'lt'
+          })
+      document.body.className = document.body.className.replace(oldPal, newPal)
     }
   }
 }
@@ -79,4 +94,5 @@ export default {
 <style>
 @import './assets/css/layouts.css';
 @import './assets/css/palettes.css';
+@import './assets/css/animations.css';
 </style>

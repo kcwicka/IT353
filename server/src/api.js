@@ -55,8 +55,7 @@ module.exports = client => {
                     if (!res || request.body.pass !== res.pass) {
                         response.send(
                             ResponseBuilder(
-                                `Invalid username/password combination`,
-                                {}
+                                `Invalid username/password combination`
                             )
                         );
                         return;

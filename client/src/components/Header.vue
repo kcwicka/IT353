@@ -1,12 +1,15 @@
 <template>
     <header class="curved">
-        <span id="navbar" v-if="loggedIn">
-            <button class="curved" type="button" @click="link('/')" title="Home">🎲</button>
-            <button class="curved" type="button" @click="link('/add-game')" title="Add...">➕</button>
-            <button class="curved" type="button" @click="link('/closet')" title="View...">📃</button>
-            <button class="curved" type="button" id="toggle" @click="togglePalette()" title="Toggle Night Mode">{{ togg }}</button>
+        <span class="title">The Game Closet</span>
+        <span id="navbar">
+            <span v-if="loggedIn">
+                <button class="curved" type="button" @click="link('/')" title="Home">🎲</button>
+                <button class="curved" type="button" @click="link('/add-game')" title="Add...">➕</button>
+                <button class="curved" type="button" @click="link('/closet')" title="View...">📃</button>
+                <button class="curved" type="button" id="toggle" @click="togglePalette()" title="Toggle Night Mode">{{ toggle }}</button>
+            </span>
+            <Login v-else @popup="$emit('popup', $event)"/>
         </span>
-        <Login v-else @popup="$emit('popup', $event)"/>
     </header>
 </template>
 
@@ -14,27 +17,10 @@
 import Login from './Login'
 export default {
   components: { Login },
-  data: () => ({ light: '🌞', dark: '🌑', toggle: {} }),
-  props: [ 'loggedIn', 'togg' ],
+  props: [ 'loggedIn', 'toggle' ],
   methods: {
     togglePalette () {
-      const toggle = document.querySelector('#toggle')
-      const config =
-        (toggle.innerText === this.dark)
-          ? ({
-            oldBtn: this.dark,
-            newBtn: this.light,
-            oldPal: 'pal-solar-lt',
-            newPal: 'pal-solar-dk'
-          })
-          : ({
-            oldBtn: this.light,
-            newBtn: this.dark,
-            oldPal: 'pal-solar-dk',
-            newPal: 'pal-solar-lt'
-          })
-      document.body.classList.replace(config.oldPal, config.newPal)
-      toggle.innerText = toggle.innerText.replace(config.oldBtn, config.newBtn)
+      this.$emit('toggle')
     },
     test () {
       this.$router.push('/')

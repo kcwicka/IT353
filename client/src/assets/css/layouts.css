@@ -1,29 +1,11 @@
-a,
 button,
 footer,
 header,
 input,
-li,
-main {
-  box-shadow: 0.075rem 0.075rem 0.1rem var(--black),
-    -0.075rem 0.075rem 0.1rem var(--black),
-    0.075rem -0.075rem 0.1rem var(--black),
-    -0.075rem -0.075rem 0.1rem var(--black);
-}
-a,
-a:link {
-  color: var(--blue);
-  background-color: var(--black);
-  padding: 0 1rem;
-}
-a:visited {
-  color: var(--violet);
-}
-a:hover {
-  color: var(--cyan);
-}
-a:active {
-  color: var(--magenta);
+main,
+.game {
+  box-shadow: 0.075rem 0.075rem 0.1rem var(--accent3),
+    -0.075rem -0.075rem 0.1rem var(--accent2);
 }
 body {
   background-color: var(--white);
@@ -31,26 +13,22 @@ body {
   font-size: 1.25rem;
 }
 button {
-  background-color: var(--darkergray);
+  background-color: var(--primary);
   border: none;
   font-size: 1.25rem;
   padding: 0.5rem;
 }
-button:hover {
-  background-color: var(--darkestgray);
-}
 button:active {
-  background-color: var(--lightgray);
+  background-color: var(--secondary);
 }
 footer,
 header {
-  background-color: var(--lightgray);
-  color: var(--darkestgray);
+  background-color: var(--secondary);
+  color: var(--white);
 }
 footer,
 header,
-main,
-#notify {
+main {
   margin: 0.5rem auto;
   padding: 1.5rem;
   width: 85%;
@@ -68,18 +46,10 @@ input[type='number'] {
   width: 2rem;
 }
 label {
-  color: var(--darkestgray);
-}
-li {
-  background-color: var(--darkgray);
-  color: var(--lightestgray);
-  list-style-type: none;
-  margin: 1rem auto;
-  padding: 1rem;
+  color: var(--accent3);
 }
 main {
-  background-color: var(--lightergray);
-  color: var(--darkergray);
+  background-color: var(--primary);
 }
 pre {
   text-align: left;
@@ -92,19 +62,30 @@ td {
   margin: 0.125rem;
   padding: 0.25rem;
 }
-ul {
-  display: inline-block;
+#notify {
+  animation-duration: 2500ms;
+  position: absolute;
+  top: 20%;
+  left: 7.5%;
+  padding: 1.5rem;
   width: fit-content;
+  text-align: center;
 }
-
+.game {
+  background-color: var(--secondary);
+  margin: 1rem;
+  padding: 1rem;
+  width: fit-content;
+  display: inline-block;
+}
 .error {
-  background-color: var(--red);
+  background-color: var(--error);
 }
 .success {
-  background-color: var(--green);
+  background-color: var(--success);
 }
 .warning {
-  background-color: var(--yellow);
+  background-color: var(--warning);
 }
 .curved {
   border-radius: 2rem;
